@@ -8,7 +8,7 @@ public class BlockContext implements AutoCloseable {
     }
 
     @Override
-    public void close() {
+    public void close() throws InterruptedException {
         task.blockEnd();
     }
 }

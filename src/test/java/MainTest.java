@@ -31,11 +31,11 @@ public class MainTest {
 
             final var i1 = w.await(getCpuBoundIntAsync());
 
-            System.out.println("3");
+            System.out.println("3: " + i1);
 
             final var i2 = getCpuBoundInt();
 
-            System.out.println("4");
+            System.out.println("4: " + i2);
 
         } catch (final InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -61,18 +61,20 @@ public class MainTest {
 
     @Test
     public void testDoBlocks() {
-        w.doBlock(() -> 1);
+        w.spawn(() -> {
+            try {
+                w.doBlock(() -> 1);
 
-        try {
-            w.doBlockEx1(() -> Thread.sleep(2000L));
+                w.doBlockEx1(() -> Thread.sleep(2000L));
 
-            w.<IOException, GeneralSecurityException>doBlockEx2(MainTest::twoExThrower);
+                w.<IOException, GeneralSecurityException>doBlockEx2(MainTest::twoExThrower);
 
-            fail();
+                fail();
 
-        } catch (final InterruptedException | IOException | GeneralSecurityException e) {
-            // Do nothing
-        }
+            } catch (final InterruptedException | IOException | GeneralSecurityException e) {
+                // Do nothing
+            }
+        });
     }
 
     private static void twoExThrower() throws IOException, GeneralSecurityException {

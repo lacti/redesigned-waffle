@@ -30,3 +30,9 @@ hs_err_pid*
 
 # Built
 build/
+
+# Build env from vscode
+.classpath
+.project
+.settings
+.vscode

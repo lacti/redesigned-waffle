@@ -39,31 +39,35 @@ public class W {
         runnable.run();
     }
 
-    public <T> T doBlock(final Supplier<T> supplier) {
+    public <T> T doBlock(final Supplier<T> supplier) throws InterruptedException {
         try (final var bc = new BlockContext()) {
             return supplier.get();
         }
     }
 
-    public <E1 extends Throwable> void doBlockEx1(final FunctionUtil.RunnableThrowing1<E1> runnable) throws E1 {
+    public <E1 extends Throwable> void doBlockEx1(final FunctionUtil.RunnableThrowing1<E1> runnable)
+            throws E1, InterruptedException {
         try (final var bc = new BlockContext()) {
             runnable.run();
         }
     }
 
-    public <T, E1 extends Throwable> T doBlockEx1(final FunctionUtil.SupplierThrowing1<T, E1> supplier) throws E1 {
+    public <T, E1 extends Throwable> T doBlockEx1(final FunctionUtil.SupplierThrowing1<T, E1> supplier)
+            throws E1, InterruptedException {
         try (final var bc = new BlockContext()) {
             return supplier.get();
         }
     }
 
-    public <E1 extends Throwable, E2 extends Throwable> void doBlockEx2(final FunctionUtil.RunnableThrowing2<E1, E2> runnable) throws E1, E2 {
+    public <E1 extends Throwable, E2 extends Throwable> void doBlockEx2(
+            final FunctionUtil.RunnableThrowing2<E1, E2> runnable) throws E1, E2, InterruptedException {
         try (final var bc = new BlockContext()) {
             runnable.run();
         }
     }
 
-    public <T, E1 extends Throwable, E2 extends Throwable> T doBlockEx2(final FunctionUtil.SupplierThrowing2<T, E1, E2> supplier) throws E1, E2 {
+    public <T, E1 extends Throwable, E2 extends Throwable> T doBlockEx2(
+            final FunctionUtil.SupplierThrowing2<T, E1, E2> supplier) throws E1, E2, InterruptedException {
         try (final var bc = new BlockContext()) {
             return supplier.get();
         }
